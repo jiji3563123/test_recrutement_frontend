@@ -1,5 +1,6 @@
 import React from 'react';
 
+// The Event component receives 'event', 'position', 'height', and 'left' props to display an individual event
 const Event = ({ event, position, height, left }) => {
   return (
     <div
