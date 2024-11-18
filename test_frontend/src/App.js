@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'; // Import React, along with useState and useEffect hooks from React package
+import getData from './getData'; // Import the getData function
 
 function App() {
+  const [data, setData] = useState([]);    // Define state variable 'data' and its setter function 'setData'
+
+  useEffect(() => { // useEffect hook to run side effects in the component
+    const fetchData = async () => {
+      const fetchedData = await getData(); // Fetch data using the 'getData' function
+      setData(fetchedData);   // Update the state 'data' with the fetched data
+    };
+
+    fetchData();
+  }, []); 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Tableau des evenements</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Début</th>
+            <th>Durée (minutes)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.start}</td>
+              <td>{item.duration}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
 export default App;
+
